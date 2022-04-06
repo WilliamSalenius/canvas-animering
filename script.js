@@ -6,6 +6,9 @@ canvas.style.height = "100%";
 
 let c = canvas.getContext("2d");
 
+const midX = canvas.width / 2;
+const midY = canvas.height / 2;
+
 // Startläge kvadraterna
 // Slumpas fram med lite marginal från kanterna
 // (minst 200 px till vänstermarginal, max 20 % av bredd till högermarginal)
@@ -46,15 +49,19 @@ document.onkeydown = function (e) {
   const key = e.key;
   switch (key) {
     case "ä":
+      dxRed = -dxRed;
       console.log("Röd kvadrat ska byta riktning i x-led");
       break;
     case "ö":
+      dyRed = -dyRed;
       console.log("Röd kvadrat ska byta riktning i y-led");
       break;
     case "a":
+      dxYellow = -dxYellow;
       console.log("Gul kvadrat ska byta riktning i x-led");
       break;
     case "s":
+      dyYellow = -dyYellow;
       console.log("Gul kvadrat ska byta riktning i y-led");
       break;
     case " ": // Mellanslag
@@ -80,9 +87,23 @@ function drawRects() {
 
   // Rensar gammalt visuellt innehåll
   c.clearRect(0, 0, canvas.width, canvas.height);
+  let rectPosX = canvas.width * 0.1;
+  let rectPosY = canvas.height * 0.1;
+  let rectWidth = canvas.width * 0.8;
+  let rectHeight = canvas.height * 0.8;
+
+  c.lineWidth = "2";
+  c.strokeStyle = "black";
+
+  c.beginPath();
+  c.rect(rectPosX, rectPosY, rectWidth, rectHeight);
+  c.stroke()
 
   // Kolla om riktningsändring ska göras pga kant
   checkBounce();
+
+  //
+  checkPass();
 
   // Beräkna nytt läge
   xPosRed += dxRed;
@@ -126,4 +147,8 @@ function checkBounce() {
     dyYellow = -dyYellow;
     yellowBounces += 1;
   }
+}
+
+function checkPass() {
+  if (xPosRed = canvas.width * 0.1 && xPosRed)
 }
