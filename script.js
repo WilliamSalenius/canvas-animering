@@ -9,6 +9,12 @@ let c = canvas.getContext("2d");
 const midX = canvas.width / 2;
 const midY = canvas.height / 2;
 
+let redOutside = false; 
+let yellowOutside = false;
+let redOutside_2;
+let yellowOutside_2;
+let ammountOfPasses = 0;
+
 // Startläge kvadraterna
 // Slumpas fram med lite marginal från kanterna
 // (minst 200 px till vänstermarginal, max 20 % av bredd till högermarginal)
@@ -87,6 +93,8 @@ function drawRects() {
 
   // Rensar gammalt visuellt innehåll
   c.clearRect(0, 0, canvas.width, canvas.height);
+
+  //Ritar ramen
   let rectPosX = canvas.width * 0.1;
   let rectPosY = canvas.height * 0.1;
   let rectWidth = canvas.width * 0.8;
@@ -102,7 +110,7 @@ function drawRects() {
   // Kolla om riktningsändring ska göras pga kant
   checkBounce();
 
-  //
+  // Kolla om kvadraten passerar ramen.
   checkPass();
 
   // Beräkna nytt läge
@@ -150,5 +158,30 @@ function checkBounce() {
 }
 
 function checkPass() {
-  if (xPosRed = canvas.width * 0.1 && xPosRed)
+
+  if (xPosRed + (sizeRed / 2) < canvas.width * 0.1 || xPosRed + (sizeRed / 2) > canvas.width * 0.9 || yPosRed + (sizeRed / 2) < canvas.height * 0.1 || yPosRed + (sizeRed / 2) > canvas.height * 0.9) {
+    redOutside_2 = true;
+  } else {
+    redOutside_2 = false;
+  }
+  
+  if (xPosYellow + (sizeYellow / 2) < canvas.width * 0.1 || xPosYellow + (sizeYellow / 2) > canvas.width * 0.9 || yPosYellow + (sizeYellow / 2) < canvas.height * 0.1 || yPosYellow + (sizeYellow / 2) > canvas.height * 0.9) {
+    yellowOutside_2 = true;
+  } else {
+    yellowOutside_2 = false;
+  }
+
+  if (redOutside == false && redOutside_2 == true) {
+    ammountOfPasses++;
+  }
+
+  if (yellowOutside == false && yellowOutside_2 == true) {
+    ammountOfPasses++;
+  }
+
+  redOutside = redOutside_2;
+  yellowOutside = yellowOutside_2;
+
+  console.log(ammountOfPasses)
+
 }
